@@ -1,4 +1,3 @@
-
 const weatherDatabase = [
 {
 description: "Фактическая погода по аэродрому Пулково 02.10.25 за 19.30 UTC, тихо, условия хорошие, температура 2 градуса, температура точки росы 0 градусов, давление QNH (на уровне моря по СА) 1032гПа, состояние всех ВПП: чистая и сухая, степень загрязнения 51-100%, высота отложений 0мм, коэффициент сцепления 0,6. Прогноз на посадку без изменений.",
@@ -34,8 +33,7 @@ easy: [
 {code:"TAF UBBB 2017/2618 27005KT 9999 SCT030", errors:[2], hint:"Вот это прогноз на будущее"},
 {code:"TAF UUEE 251720Z 2518/2618 3900MPS 9999", errors:[4], hint:"ветер в прогнозе"},
 {code:"TAF ULLI 290754Z 2909/3009 20006G12MPS 6000 BKN006 OVC016 TEMPO 2909/2919 3100 -SHRA BKN005 BKN016CB PROB20 2914/2919 3100 -FZRA=", errors:[14], hint:"вероятность либо 30, либо 40, третьего не дано"},
-{code:"TAF ULLI 281952Z 2821/2921 13003MPS 6000 SCT016 TEMPO 2821/2906 6000 FG BKN002=", errors:[9], hint:"слишком большая видимость при тумане"},
-{code:"TAF UBBB 2017/2618 27005KT 9999 SCT030", errors:[2], hint:"Вот это прогноз на будущее"}
+{code:"TAF ULLI 281952Z 2821/2921 13003MPS 6000 SCT016 TEMPO 2821/2906 6000 FG BKN002=", errors:[9], hint:"слишком большая видимость при тумане"}
 ],
 medium: [
 {code:"TAF AMD LFPG 2517/2624 22010KT 6000 RA BKN000", errors:[7], hint:"Бело и влажно"},
@@ -158,7 +156,7 @@ const speedDecodeData = [
 "METAR UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012=",
 "METAR URSS 141630Z 00000MPS CAVOK 20/15 Q1010=",
 "METAR EGLL 251650Z VRB03KT 9999 FEW030 15/10 Q1018 NOSIG=",
-"METAR ULLI 021930Z 00000MPS CAVOK 02/00 Q1032 R88/090060 NOSIG="
+"METAR ULLI 021930Z 00000MPS CAVOK 02/00 Q1032 R88/090060 NOSIG=", // ДОБАВЛЕНА ЗАПЯТАЯ
 "METAR UUYY 291830Z 28004MPS 9999 FEW030CB 10/09 Q1011 R18/19//55 NOSIG RMK QFE750/1000=",
 "METAR UUYY 150730Z 26008MPS 8000 -SHSN SCT019CB BKN036 M03/M06 Q0999 R18/29//51 NOSIG RMK QFE740/0987=",
 "METAR UUYY 150230Z 25010G20MPS 4300 -SHSNRA FEW010 BKN025CB 01/M01 Q0985 R18/29//51 TEMPO 0500 +SHSN RMK QFE731/0974",
@@ -203,7 +201,7 @@ const quizQuestions = [
 {question: "Код для дыма", options: ["FZ", "FU", "FG", "FC"], correct: 1},
 {question: "Код для снежной крупы", options: ["GR", "SN", "GS", "SG"], correct: 2},
 {question: "Что значит QBB080?", options: ["высота облаков 2400м", "высота облаков 80 футов", "высота облаков 80м", "высота облаков 2400 футов"], correct: 2},
-{question: "Код для закрытия препятствий", options: [OBSC OBST"", "OBSC OBSC", "OBST OBSC", "OBST OBST"], correct: 2},
+{question: "Код для закрытия препятствий", options: ["OBSC OBST", "OBSC OBSC", "OBST OBSC", "OBST OBST"], correct: 2}, // ИСПРАВЛЕНА СТРОКА
 {question: "Код для сдвига ветра на всех ВПП", options: ["WS ALL VPP", "WS ALL", "R88/WS", "WS ALL RWY"], correct: 3},
 {question: "Как зашифровать давление 999,5гПа?", options: ["Q0999", "Q1000", "Q9995", "Q999"], correct: 0}
 ];
@@ -218,6 +216,3 @@ const flightPlannerData = [
 {route: "Основной: UUWW: METAR UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG \n Маршруртный: UUDD: METAR UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012 \n Запасной URSS: METAR URSS 141630Z 00000MPS CAVOK 20/15 Q1010", expected: "go", points: 50},
 {route: "Основной: ULLI: METAR ULLI 021930Z 00000MPS CAVOK 02/00 Q1032\nEGLL: Маршруртный: METAR EGLL 251650Z 14004MPS FG 600 BKN019 TSRA 10/8 Q995 \n Запасной METAR KMSN 150153Z 14007MPS 9999 SCT100 BKN120 M01/M07 ", expected: "alternate", points: 30}
 ];
-
-
-
