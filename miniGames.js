@@ -817,18 +817,18 @@ function startSlotMachine() {
         }
         document.getElementById('slot-result').textContent = message;
         lever.disabled = false;
-    }, 2000);
+    }, 1000);
 }
 
 function snowAnimation() {
     if (!appSettings.animations) return;
     const animContainer = document.getElementById('animation-container');
     animContainer.style.display = 'block';
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
         const flake = document.createElement('div');
         flake.className = 'snowflake';
         flake.style.left = `${Math.random() * 100}vw`;
-        flake.style.animationDuration = `${Math.random() * 3 + 10}s`;
+        flake.style.animationDuration = `${Math.random() * 3 + 8}s`;
         flake.style.animationDelay = `${Math.random() * 2}s`;
         flake.style.width = `${Math.random() * 5 + 5}px`;
         flake.style.height = flake.style.width;
@@ -837,18 +837,18 @@ function snowAnimation() {
     setTimeout(() => {
         animContainer.innerHTML = '';
         animContainer.style.display = 'none';
-    }, 2000);
+    }, 8000);
 }
 
 function rainAnimation() {
     if (!appSettings.animations) return;
     const animContainer = document.getElementById('animation-container');
     animContainer.style.display = 'block';
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
         const drop = document.createElement('div');
         drop.className = 'raindrop';
         drop.style.left = `${Math.random() * 100}vw`;
-        drop.style.animationDuration = `${Math.random() * 1 + 3}s`;
+        drop.style.animationDuration = `${Math.random() * 1 + 8}s`;
         drop.style.animationDelay = `${Math.random() * 2}s`;
         animContainer.appendChild(drop);
     }
@@ -868,7 +868,7 @@ function sunAnimation() {
     setTimeout(() => {
         animContainer.innerHTML = '';
         animContainer.style.display = 'none';
-    }, 4000);
+    }, 8000);
 }
 
 // Инициализация при загрузке
@@ -876,4 +876,5 @@ document.addEventListener('DOMContentLoaded', function() {
     loadMiniStats();
     initGameSelector();
     if (document.getElementById('score')) updateStats();
+
 });
