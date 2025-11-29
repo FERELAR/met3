@@ -893,26 +893,17 @@ function decodeCode() {
     return;
   }
   
-  document.getElementById('loading-decode').style.display = 'block';
+  const codeType = document.querySelector('.code-type-btn.active').dataset.type;
+  const availableTypes = ['metar', 'taf'];
+  const devTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
   
-  setTimeout(() => {
-    const codeType = document.querySelector('.code-type-btn.active').dataset.type;
-    let parsed = '';
     
     // Проверяем, доступен ли выбранный тип кода
-    const availableTypes = ['metar', 'taf'];
-    if (!availableTypes.includes(codeType)) {
-      parsed = `Парсер для ${codeType.toUpperCase()} в разработке\n\nВыберите METAR или TAF для авторасшифровки.`;
-    } else {
-      try {
-        if (codeType === 'metar' || codeType === 'speci') {
-          parsed = parseMetar(input);
-        } else if (codeType === 'taf') {
-          parsed = parseTaf(input);
-        }
-      } catch (error) {
-        parsed = `Ошибка при обработке кода: ${error.message}`;
-      }
+ if (devTypes.includes(codeType)) {
+    document.getElementById('decode-result').textContent = `${codeType.toUpperCase()} находится в разработке. Выберите METAR или TAF.`;
+    document.getElementById('decode-result').className = 'result error';
+    return;
+  }
     }
     
     document.getElementById('decode-result').textContent = parsed;
@@ -1383,4 +1374,5 @@ function toggleAccordion(element) {
   }
 
 }
+
 
