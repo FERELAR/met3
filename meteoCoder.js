@@ -1339,3 +1339,15 @@ function loadSettings() {
 }
 
 loadSettings();
+
+function toggleAccordion(element) {
+  element.classList.toggle("active");
+  const panel = element.nextElementSibling;
+  if (panel.style.display === "block") {
+    panel.style.display = "none";
+    element.setAttribute("aria-expanded", "false");
+  } else {
+    panel.style.display = "block";
+    element.setAttribute("aria-expanded", "true");
+  }
+}
