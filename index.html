@@ -39,41 +39,42 @@
                 <section class="main-content">
                     <section class="main-content-inner">
                         <nav class="code-type-selector" role="tablist">
-    <button class="code-type-btn active" data-type="metar" aria-selected="true" role="tab"><i class="fas fa-plane"></i> METAR/SPECI</button>
-    <button class="code-type-btn" data-type="kn01" aria-selected="false" role="tab" disabled><i class="fas fa-cloud-rain"></i> КН-01 (Не доступно)</button>
-    <button class="code-type-btn" data-type="taf" aria-selected="false" role="tab"><i class="fas fa-clock"></i> TAF</button>
-    <button class="code-type-btn" data-type="gamet" aria-selected="false" role="tab" disabled><i class="fas fa-map-marked-alt"></i> GAMET (Не доступно)</button>
-    <button class="code-type-btn" data-type="sigmet" aria-selected="false" role="tab" disabled><i class="fas fa-exclamation-triangle"></i> SIGMET (Не доступно)</button>
-    <button class="code-type-btn" data-type="warep" aria-selected="false" role="tab" disabled><i class="fas fa-bolt"></i> WAREP (Не доступно)</button>
-    <button class="code-type-btn" data-type="kn04" aria-selected="false" role="tab" disabled><i class="fas fa-wind"></i> КН-04 (Не доступно)</button>
-    <button class="code-type-btn" data-type="airmet" aria-selected="false" role="tab" disabled><i class="fas fa-cloud-meatball"></i> AIRMET (Не доступно)</button>
-</nav>
+                            <button class="code-type-btn active" data-type="metar" aria-selected="true" role="tab"><i class="fas fa-plane"></i> METAR/SPECI</button>
+                            <button class="code-type-btn" data-type="kn01" aria-selected="false" role="tab"><i class="fas fa-cloud-rain"></i> КН-01</button>
+                            <button class="code-type-btn" data-type="taf" aria-selected="false" role="tab"><i class="fas fa-clock"></i> TAF</button>
+                            <button class="code-type-btn" data-type="gamet" aria-selected="false" role="tab"><i class="fas fa-map-marked-alt"></i> GAMET</button>
+                            <button class="code-type-btn" data-type="sigmet" aria-selected="false" role="tab"><i class="fas fa-exclamation-triangle"></i> SIGMET</button>
+                            <button class="code-type-btn" data-type="warep" aria-selected="false" role="tab"><i class="fas fa-bolt"></i> WAREP</button>
+                            <button class="code-type-btn" data-type="kn04" aria-selected="false" role="tab"><i class="fas fa-wind"></i> КН-04</button>
+                            <button class="code-type-btn" data-type="airmet" aria-selected="false" role="tab"><i class="fas fa-cloud-meatball"></i> AIRMET</button>
+                        </nav>
+
                         <div id="dev-message" class="instructions" style="display: none; text-align: center; font-weight: 700;">
                             В разработке
                         </div>
 
-                       <nav class="mode-selector" role="tablist">
-    <div class="mode-btn active" data-mode="decode" aria-selected="true" role="tab">
-        <i class="fas fa-search"></i>
-        <h3>Авторасшифровка</h3>
-        <p>Программа расшифрует код за вас</p>
-    </div>
-    <div class="mode-btn" data-mode="practice-decode" aria-selected="false" role="tab">
-        <i class="fas fa-check"></i>
-        <h3>Проверка знаний</h3>
-        <p>Проверьте свои навыки расшифровки кодов</p>
-    </div>
-    <div class="mode-btn" data-mode="practice-encode" aria-selected="false" role="tab">
-        <i class="fas fa-pencil-alt"></i>
-        <h3>Кодирование</h3>
-        <p>В разработке</p>
-    </div>
-</nav>
+                        <nav class="mode-selector" role="tablist">
+                            <div class="mode-btn active" data-mode="decode" aria-selected="true" role="tab">
+                                <i class="fas fa-search"></i>
+                                <h3>Авторасшифровка</h3>
+                                <p>Программа расшифрует код за вас</p>
+                            </div>
+                            <div class="mode-btn" data-mode="practice-decode" aria-selected="false" role="tab">
+                                <i class="fas fa-check"></i>
+                                <h3>Проверка знаний (Расшифровка)</h3>
+                                <p>Проверьте свои навыки расшифровки</p>
+                            </div>
+                            <div class="mode-btn" data-mode="practice-encode" aria-selected="false" role="tab">
+                                <i class="fas fa-pencil-alt"></i>
+                                <h3>Проверка знаний (Кодирование)</h3>
+                                <p>Закодируйте описание погоды</p>
+                            </div>
+                        </nav>
 
                         <div class="input-section">
                             <div class="mode-content active" id="decode-content">
                                 <div class="instructions" id="decode-instructions">
-                                    <strong>Режим авторасшифровки:</strong>
+                                    <strong>Режим авторасшифровки:</strong> Введите код в поле ниже и нажмите "Расшифровать".
                                     <ul>
                                         <li title="Международный код для текущей погоды на аэродроме">Поддержка METAR: Полная расшифро...</li>
                                         <li title="Прогноз погоды на аэродроме">TAF: Включая изменения FM/TEMPO.</li>
@@ -101,7 +102,7 @@
 
                             <div class="mode-content" id="practice-decode-content">
                                 <div class="instructions">
-                                    <strong>Режим проверки расшифровки:</strong>
+                                    <strong>Режим проверки расшифровки:</strong> Расшифруйте предложенный код и проверьте свои знания.
                                     <ul>
                                         <li>Используйте подсказки в боковой панели для помощи.</li>
                                         <li>Проверьте точность температуры, ветра и видимости.</li>
@@ -134,7 +135,7 @@
 
                             <div class="mode-content" id="practice-encode-content">
                                 <div class="instructions">
-                                    <strong>Режим проверки кодирования:</strong>
+                                    <strong>Режим проверки кодирования:</strong> Прочитайте описание погоды и закодируйте его.
                                     <ul>
                                         <li>Убедитесь в правильном формате групп.</li>
                                         <li>Используйте подсказку для структуры.</li>
@@ -523,6 +524,7 @@ NOSIG - Без значительных изменений
 
 
 </html>
+
 
 
 
