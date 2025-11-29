@@ -1194,9 +1194,12 @@ document.addEventListener('DOMContentLoaded', function() {
   initTrainerModes();
   initCodeTypeButtons();
   updateTrainerStats();
-  
+  initAccordion();
+
+  hideDevMessage();
+
   // Инициализация первого упражнения
-  newPracticeCode();
+ newPracticeCode();
   if (typeof newEncodeExercise === 'function') {
     newEncodeExercise();
   }
@@ -1374,5 +1377,6 @@ function toggleAccordion(element) {
   }
 
 }
+
 
 
