@@ -163,22 +163,23 @@ const quizQuestions = [
 const tafPredictorData = [
 {metar: "UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG", taf: "TAF UUWW 141600Z 1418/1524 03005MPS 9999 BKN015 TX15/1412Z TN10/1503Z", 
  question: "Какая минимальная температура ожидается ночью?", 
- possibleAnswers: "10"},
+Answers: "10"},
 {metar: "UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012", taf: "TAF UUDD 141500Z 1416/1518 04006MPS 8000 OVC010 TEMPO 1418/1506 4000 BR BKN005", 
  question: "Будет ли туман ночью?", 
- possibleAnswers: "Нет"},
+Answers: "Нет"},
 {metar: "URSS 141630Z 00000MPS CAVOK 20/15 Q1010", taf: "TAF URSS 141600Z 1418/1524 VRB03MPS 9999 FEW030",
  question: "Изменится ли ветер вечером?", 
- possibleAnswers: "Да"},
+ Answers: "Да"},
 {metar: "ULLI 021930Z 00000MPS CAVOK 02/00 Q1032 R88/090060 NOSIG", taf: "TAF ULLI 021800Z 0219/0321 35004MPS 9999 BKN020",
  question: "Какая облачность ожидается?",
- possibleAnswers: "BKN020", "рассеянная облачность высотой 600 метров", "рассеянная облачность"},
+eAnswers: "BKN020"},
 {metar: "EGLL 251650Z VRB03KT 9999 FEW030 15/10 Q1018 NOSIG", taf: "TAF EGLL 251600Z 2518/2624 20005KT 9999 SCT025 PROB30 TEMPO 2600/2609 BKN010",
  question: "Вероятность низкой облачности?", 
- possibleAnswers: "30", "30%", "тридцать"}
+Answers: "30"},
 ];
 const flightPlannerData = [
 {route: "Основной: UUWW: METAR UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG \n Маршруртный: UUDD: METAR UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012 \n Запасной URSS: METAR URSS 141630Z 00000MPS CAVOK 20/15 Q1010", expected: "go", points: 50},
 {route: "Основной: ULLI: METAR ULLI 021930Z 00000MPS CAVOK 02/00 Q1032\nEGLL: Маршруртный: METAR EGLL 251650Z 14004MPS FG 600 BKN019 TSRA 10/8 Q995 \n Запасной METAR KMSN 150153Z 14007MPS 9999 SCT100 BKN120 M01/M07 ", expected: "alternate", points: 30}
 
 ];
+
