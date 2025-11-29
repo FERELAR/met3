@@ -1,4 +1,3 @@
-let currentEncodeExercise = null;
 let trainerStats = JSON.parse(localStorage.getItem('trainerStats') || '{"level":1,"totalDecoded":0,"correctDecoded":0,"sessionDecoded":0,"sessionCorrect":0,"errorsByType":{"metar":0,"kn01":0,"taf":0,"gamet":0,"sigmet":0,"warep":0,"kn04":0,"airmet":0}}');
 let currentPracticeCode = null;
 let hintStep = 0;
@@ -614,4 +613,5 @@ function parseGamet(code) { return 'Парсер GAMET в разработке';
 function parseSigmet(code) { return 'Парсер SIGMET в разработке'; }
 function parseWarep(code) { return 'Парсер WAREP в разработке'; }
 function parseKn04(code) { return 'Парсер КН-04 в разработке'; }
+
 function parseAirmet(code) { return 'Парсер AIRMET в разработке'; }
