@@ -1010,7 +1010,7 @@ function parseAirmet(code) { return 'Парсер AIRMET в разработке
 
 // Обновленная функция для выбора типа кода
 function initCodeTypeButtons() {
-  document.querySelectorAll('.code-type-btn').forEach(btn => {
+  document.querySelectorAll('.code-type-btn:not([disabled])').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.code-type-btn').forEach(b => {
         b.classList.remove('active');
@@ -1055,6 +1055,13 @@ function updateInstructions(codeType) {
   const hints = document.getElementById('hints');
   
   const availableTypes = ['metar', 'taf'];
+  const disabledTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
+  
+  if (disabledTypes.includes(codeType)) {
+    instructions.innerHTML = `<strong>${codeType.toUpperCase()} - В разработке</strong><br>Данный тип кода временно недоступен. Выберите METAR или TAF.`;
+    hints.textContent = 'Парсер в разработке...';
+    return;
+  }
   
   if (!availableTypes.includes(codeType)) {
     instructions.innerHTML = `<strong>${codeType.toUpperCase()} в разработке</strong><br>Данный тип кода временно недоступен для авторасшифровки. Выберите METAR или TAF.`;
@@ -1062,17 +1069,6 @@ function updateInstructions(codeType) {
     return;
   }
   
-  switch(codeType) {
-    case 'metar':
-      instructions.innerHTML = '<strong>Режим авторасшифровки METAR/SPECI:</strong> Введите код в поле ниже и нажмите "Расшифровать".';
-      hints.textContent = 'UUWW - Аэропорт Внуково\n141630Z - 14 число, 16:30 UTC\n05007MPS - Ветер 050°, 7 м/с\n9999 - Видимость 10+ км\nSCT020 - Облачность рассеянная на 2000 футов\n17/12 - Температура 17°C, точка росы 12°C\nQ1011 - Давление 1011 гПа\nNOSIG - Без значительных изменений';
-      break;
-    case 'taf':
-      instructions.innerHTML = '<strong>Режим авторасшифровки TAF:</strong> Введите код прогноза в поле ниже.';
-      hints.textContent = 'TAF - Тип сообщения (прогноз)\nUUWW - Аэропорт Внуково\n141600Z - Время выпуска 14 число, 16:00 UTC\n1418/1524 - Период действия с 14-го 18:00 до 15-го 24:00\n03005MPS - Ветер 030°, 5 м/с\n9999 - Видимость 10+ км\nBKN015 - Значительная облачность на 1500 футов\nBECMG - Постепенное изменение\nTEMPO - Временное изменение';
-      break;
-  }
-}
 
 // Остальные функции остаются без изменений...
 function newPracticeCode() {
@@ -1351,3 +1347,16 @@ function toggleAccordion(element) {
     element.setAttribute("aria-expanded", "true");
   }
 }
+
+// Добавьте также обработчики событий для клавиатуры
+document.addEventListener('DOMContentLoaded', function() {
+  // Обработчики для аккордеона
+  document.querySelectorAll('.accordion h4').forEach(header => {
+    header.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleAccordion(this);
+      }
+    });
+  });
+});
