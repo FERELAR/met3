@@ -893,17 +893,26 @@ function decodeCode() {
     return;
   }
   
-  const codeType = document.querySelector('.code-type-btn.active').dataset.type;
-  const availableTypes = ['metar', 'taf'];
-  const devTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
+  document.getElementById('loading-decode').style.display = 'block';
   
+  setTimeout(() => {
+    const codeType = document.querySelector('.code-type-btn.active').dataset.type;
+    let parsed = '';
     
     // Проверяем, доступен ли выбранный тип кода
- if (devTypes.includes(codeType)) {
-    document.getElementById('decode-result').textContent = `${codeType.toUpperCase()} находится в разработке. Выберите METAR или TAF.`;
-    document.getElementById('decode-result').className = 'result error';
-    return;
-  }
+    const availableTypes = ['metar', 'taf'];
+    if (!availableTypes.includes(codeType)) {
+      parsed = `Парсер для ${codeType.toUpperCase()} в разработке\n\nВыберите METAR или TAF для авторасшифровки.`;
+    } else {
+      try {
+        if (codeType === 'metar' || codeType === 'speci') {
+          parsed = parseMetar(input);
+        } else if (codeType === 'taf') {
+          parsed = parseTaf(input);
+        }
+      } catch (error) {
+        parsed = `Ошибка при обработке кода: ${error.message}`;
+      }
     }
     
     document.getElementById('decode-result').textContent = parsed;
@@ -1001,26 +1010,8 @@ function parseAirmet(code) { return 'Парсер AIRMET в разработке
 
 // Обновленная функция для выбора типа кода
 function initCodeTypeButtons() {
-  const availableTypes = ['metar', 'taf'];
-  const devTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
-  
   document.querySelectorAll('.code-type-btn').forEach(btn => {
-    const codeType = btn.dataset.type;
-    
-    if (devTypes.includes(codeType)) {
-      // Для типов в разработке - добавляем класс disabled и меняем текст
-      btn.classList.add('disabled');
-      btn.innerHTML = `<i class="fas fa-tools"></i> ${codeType.toUpperCase()} (В разработке)`;
-      btn.setAttribute('title', 'Данный тип кода находится в разработке');
-    }
-    
     btn.addEventListener('click', function() {
-      if (this.classList.contains('disabled')) {
-        // Показываем сообщение о разработке
-        showDevMessage(this.dataset.type);
-        return;
-      }
-      
       document.querySelectorAll('.code-type-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
@@ -1030,21 +1021,10 @@ function initCodeTypeButtons() {
       
       updateInstructions(this.dataset.type);
       togglePracticeModes(this.dataset.type);
-      hideDevMessage();
     });
   });
 }
 
-function showDevMessage(codeType) {
-  const devMessage = document.getElementById('dev-message');
-  devMessage.textContent = `${codeType.toUpperCase()} находится в разработке. Выберите METAR или TAF.`;
-  devMessage.style.display = 'block';
-  devMessage.className = 'instructions error';
-}
-
-function hideDevMessage() {
-  document.getElementById('dev-message').style.display = 'none';
-}
 // Функция для скрытия/показа режимов практики
 function togglePracticeModes(codeType) {
   const practiceDecodeBtn = document.querySelector('.mode-btn[data-mode="practice-decode"]');
@@ -1079,7 +1059,6 @@ function updateInstructions(codeType) {
   if (!availableTypes.includes(codeType)) {
     instructions.innerHTML = `<strong>${codeType.toUpperCase()} в разработке</strong><br>Данный тип кода временно недоступен для авторасшифровки. Выберите METAR или TAF.`;
     hints.textContent = 'Парсер в разработке...';
-    hideDevMessage(); // Скрываем дополнительное сообщение
     return;
   }
   
@@ -1093,9 +1072,8 @@ function updateInstructions(codeType) {
       hints.textContent = 'TAF - Тип сообщения (прогноз)\nUUWW - Аэропорт Внуково\n141600Z - Время выпуска 14 число, 16:00 UTC\n1418/1524 - Период действия с 14-го 18:00 до 15-го 24:00\n03005MPS - Ветер 030°, 5 м/с\n9999 - Видимость 10+ км\nBKN015 - Значительная облачность на 1500 футов\nBECMG - Постепенное изменение\nTEMPO - Временное изменение';
       break;
   }
-  
-  hideDevMessage();
 }
+
 // Остальные функции остаются без изменений...
 function newPracticeCode() {
   const codes = {
@@ -1194,12 +1172,9 @@ document.addEventListener('DOMContentLoaded', function() {
   initTrainerModes();
   initCodeTypeButtons();
   updateTrainerStats();
-  initAccordion();
-
-  hideDevMessage();
-
+  
   // Инициализация первого упражнения
- newPracticeCode();
+  newPracticeCode();
   if (typeof newEncodeExercise === 'function') {
     newEncodeExercise();
   }
@@ -1364,19 +1339,3 @@ function loadSettings() {
 }
 
 loadSettings();
-
-function toggleAccordion(element) {
-  element.classList.toggle("active");
-  const panel = element.nextElementSibling;
-  if (panel.style.display === "block") {
-    panel.style.display = "none";
-    element.setAttribute("aria-expanded", "false");
-  } else {
-    panel.style.display = "block";
-    element.setAttribute("aria-expanded", "true");
-  }
-
-}
-
-
-
