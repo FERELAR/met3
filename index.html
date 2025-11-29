@@ -117,7 +117,7 @@
                                     <label for="user-decode">Ваша расшифровка:</label>
                                     <textarea id="user-decode" placeholder="Введите вашу расшифровку здесь..."></textarea>
                                 </div>
-                                <button class="btn" onclick="checkDecode()" aria-label="Проверить расшифровку"><i class="fas fa-check"></i> Проверить</button>
+                                <button class="btn" onclick="checkUserDecode()" aria-label="Проверить расшифровку"><i class="fas fa-check"></i> Проверить</button>
                                 <button class="btn btn-secondary" onclick="newPracticeCode()" aria-label="Новый код"><i class="fas fa-refresh"></i> Новый код</button>
                                 <div id="loading-practice-decode" class="loading" aria-live="polite" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Проверка...</div>
                                 <div class="result" id="practice-decode-result">Результат проверки...</div>
@@ -152,7 +152,7 @@
                                     <label for="user-encode">Ваш код:</label>
                                     <textarea id="user-encode" placeholder="Введите ваш код здесь..." list="code-examples"></textarea>
                                 </div>
-                                <button class="btn" onclick="checkEncode()" aria-label="Проверить кодирование"><i class="fas fa-check"></i> Проверить кодирование</button>
+                                <button class="btn" onclick="checkUserEncode()" aria-label="Проверить кодирование"><i class="fas fa-check"></i> Проверить кодирование</button>
                                 <button class="btn btn-secondary" onclick="newEncodeExercise()" aria-label="Новое задание"><i class="fas fa-refresh"></i> Новое задание</button>
                                 <button class="btn btn-secondary" onclick="showEncodeHint()" aria-label="Показать подсказку"><i class="fas fa-lightbulb"></i> Подсказка</button>
                                 <button class="btn btn-secondary" onclick="showNextHint()" aria-label="Следующая подсказка" style="display: none;" id="next-hint-btn"><i class="fas fa-step-forward"></i> Следующая подсказка</button>
@@ -513,3 +513,4 @@ NOSIG - Без значительных изменений
 
 
 </html>
+
