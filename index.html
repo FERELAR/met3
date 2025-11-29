@@ -35,7 +35,6 @@
         </nav>
 
         <main id="page-trainer" class="page active" role="tabpanel">
-            <!-- Содержимое осталось без изменений -->
             <div class="app-container">
                 <section class="main-content">
                     <section class="main-content-inner">
@@ -241,7 +240,7 @@ NOSIG - Без значительных изменений
                         <button class="btn active" id="btn-metar">METAR</button>
                         <button class="btn" id="btn-taf">TAF</button>
                   </div>
-                    <div class="diff-buttons">
+                   <div class="diff-buttons">
                         <button class="btn" onclick="startGame('easy')">Лёгкий</button>
                         <button class="btn" onclick="startGame('medium')">Средний</button>
                         <button class="btn" onclick="startGame('hard')">Сложный</button>
@@ -260,7 +259,7 @@ NOSIG - Без значительных изменений
                     <div id="result"></div>
                 </div>
 
-                <div id="game-guess-code" class="game-container">
+                  <div id="game-guess-code" class="game-container">
                     <h1>МетеоКодер: Угадай код!</h1>
                     <p>Угадайте код для погодного явления. У тебя 3 попытки!</p>
                     <div class="stats">
@@ -271,6 +270,7 @@ NOSIG - Без значительных изменений
                     <div class="code-type-buttons">
                         <button class="btn active" id="guess-metar">METAR</button>
                     </div>
+
                     <div id="phenomenon-desc"></div>
                     
                     <!-- Область для подсказок -->
@@ -476,10 +476,6 @@ NOSIG - Без значительных изменений
         </footer>
     </div>
 
-    <audio id="ding-sound" src="ding.mp3"></audio>
-    <audio id="buzz-sound" src="buzz.mp3"></audio>
-
-    <!-- Модальное окно настроек -->
     <div id="settings-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeSettingsModal()">&times;</span>
