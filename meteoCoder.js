@@ -1088,6 +1088,7 @@ function updateInstructions(codeType) {
   if (!availableTypes.includes(codeType)) {
     instructions.innerHTML = `<strong>${codeType.toUpperCase()} в разработке</strong><br>Данный тип кода временно недоступен для авторасшифровки. Выберите METAR или TAF.`;
     hints.textContent = 'Парсер в разработке...';
+    hideDevMessage(); // Скрываем дополнительное сообщение
     return;
   }
   
@@ -1101,8 +1102,9 @@ function updateInstructions(codeType) {
       hints.textContent = 'TAF - Тип сообщения (прогноз)\nUUWW - Аэропорт Внуково\n141600Z - Время выпуска 14 число, 16:00 UTC\n1418/1524 - Период действия с 14-го 18:00 до 15-го 24:00\n03005MPS - Ветер 030°, 5 м/с\n9999 - Видимость 10+ км\nBKN015 - Значительная облачность на 1500 футов\nBECMG - Постепенное изменение\nTEMPO - Временное изменение';
       break;
   }
+  
+  hideDevMessage();
 }
-
 // Остальные функции остаются без изменений...
 function newPracticeCode() {
   const codes = {
@@ -1381,3 +1383,4 @@ function toggleAccordion(element) {
   }
 
 }
+
