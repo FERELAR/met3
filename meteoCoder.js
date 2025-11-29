@@ -14,7 +14,7 @@ let appSettings = JSON.parse(localStorage.getItem('meteoCoderSettings') || '{"th
 // Дата: 29.11.2025
 // ===================================================================
 
-const WEATHER_CODES = {
+const WEATHER_CODES1 = {
   // Описательные
   'MI': 'мелкий',     'BC': 'пятнами',     'PR': 'частично',     'DR': 'низкий перенос', 'BL': 'высокий перенос',
   'SH': 'ливневый',   'TS': 'гроза',       'FZ': 'переохлаждённый/замерзающий',
@@ -28,13 +28,13 @@ const WEATHER_CODES = {
   'PO': 'пыльный вихрь', 'SQ': 'шквал',    'FC': 'воронка (торнадо)', 'SS': 'песчаная буря', 'DS': 'пыльная буря'
 };
 
-const CLOUD_TYPES = {
+const CLOUD_TYPES1 = {
   'SKC': 'ясно', 'CLR': 'ясно (автомат)', 'NSC': 'нет значимой облачности', 'FEW': 'малооблачно (1–2/8)',
   'SCT': 'рассеянная облачность (3–4/8)', 'BKN': 'значительная облачность (5–7/8)', 'OVC': 'сплошная облачность (8/8)',
   'VV': 'вертикальная видимость', '///': 'облачность не определяется'
 };
 
-const CLOUD_SUFFIX = { 'CB': 'кучево-дождевые (Cb)', 'TCU': 'мощные кучевые (Tcu)' };
+const CLOUD_SUFFIX1 = { 'CB': 'кучево-дождевые (Cb)', 'TCU': 'мощные кучевые (Tcu)' };
 
 // ====================== ТОКЕНИЗАТОР ======================
 const TOKENS = {
@@ -94,7 +94,7 @@ function decodeWeather(code) {
   const obscuration = code.match(/(BR|FG|FU|VA|DU|SA|HZ|PY)*/)[0];
   const other = code.match(/(PO|SQ|FC|SS|DS)*/)[0];
 
-  const translate = (str) => str ? str.match(/.{2}/g).map(c => WEATHER_CODES[c] || c).join(' ') : '';
+  const translate = (str) => str ? str.match(/.{2}/g).map(c => WEATHER_CODES1[c] || c).join(' ') : '';
 
   result += intensity;
   result += translate(descriptors) + ' ';
@@ -219,9 +219,9 @@ class MetarParser extends BaseParser {
       if (m[1] === 'VV') {
         this.result.push(`Вертикальная видимость: ${parseInt(m[2]) * 30} м`);
       } else {
-        const cover = CLOUD_TYPES[m[1]] || m[1];
+        const cover = CLOUD_TYPES1[m[1]] || m[1];
         const height = m[2] !== '///' ? `${parseInt(m[2]) * 30} м (${parseInt(m[2]) * 100} ft)` : 'неизвестна';
-        const special = m[3] && m[3] !== '///' ? CLOUD_SUFFIX[m[3]] : '';
+        const special = m[3] && m[3] !== '///' ? CLOUD_SUFFIX1[m[3]] : '';
         this.result.push(`Облачность: ${cover}, высота ${height}${special ? ', ' + special : ''}`);
       }
     }
