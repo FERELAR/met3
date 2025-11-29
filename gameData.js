@@ -27,12 +27,12 @@ easy: [
 {code:"METAR UUEE 251600Z 00000KT 9999 SCT040 69/10 Q1018", errors:[6], hint:"Тепленько)"}
 ],
 medium: [
-{code:"METAR ULLI 251630Z 18050MPS 8000 -RA BKN007 OVC030 03/M01 Q1002 NOSIG", errors:[3], hint:"Скорость"},
+{code:"METAR ULLI 251630Z 18070MPS 8000 -RA BKN007 OVC030 03/M01 Q1002 NOSIG", errors:[3], hint:"Скорость"},
 {code:"METAR LFPG 251700Z 22012KT 9999 SCT025 BKN100 18/12 A1314", errors:[8], hint:"Бывает у людей подскакивает, когда они видят цены в магазине..."}
 ],
 hard: [
 {code:"METAR KJFK 251651Z 18099KT 10SM FEW040 BKN070 OVC100 18/14 A3005 RMK AO2 SLP141", errors:[3], hint1:"Вот это ветерок"},
-{code:"METAR EGLL 251650Z 24015G25KT 400 RA BKN008 OVC015 12/10 Q0900 TEMPO SHRA", errors:[4,9], hint1:"Видимость", hint2:"Низкавота ли давление?"}
+{code:"METAR EGLL 251650Z 24015G25KT 400 RA BKN008 OVC015 12/10 Q0900 TEMPO SHRA", errors:[4,9], hint1:"Видимость", hint2:"Не низковато ли давление?"}
 ]
 },
 TAF: {
@@ -46,7 +46,7 @@ medium: [
 ],
 hard: [
 {code:"TAF KJFK 251720Z 2518/2624 18010KT P6SM SKC BECMG 2420/2422 20015G25KT", errors:[8], hint1:"Ошибка в времени?"},
-{code:"TAF EGLL 251750Z 2518/2624 24012KT 9999 BKN014 PROB30 TEMPO 2520/2522 7000 SHRA", errors:[7], hint1:"Проверь вероятность"}
+{code:"TAF EGLL 251750Z 2518/2624 24012KT 9999 BKN014 PROB10 TEMPO 2520/2522 7000 SHRA", errors:[7], hint1:"Проверь вероятность"}
 ]
 },
 GAMET: {
@@ -153,21 +153,32 @@ const codeBuilderData = [
 {description: "Аэропорт Хитроу, 25 число, 16:50 UTC, ветер переменный 3 узла, видимость 10+ км, малооблачно на 900 метрах (3000 футах), температура 15°C, точка росы 10°C, давление 1018 гПа, без изменений", code: "EGLL 251650Z VRB03KT 9999 FEW030 15/10 Q1018 NOSIG"}
 ];
 const quizQuestions = [
-{question: "Что значит SCT040?", options: ["Рассеянная облачность на 1200 метрах", "Сплошная", "Разорванная", "Малооблачно"], correct: 0},
+{question: "Что значит SCT040?", options: ["Рассеянная облачность на 1200 метрах", "Сплошная на 1200 метрах", "Разорванная на 1200 метрах", "Малооблачно на 1200 метрах"], correct: 0},
 {question: "Код для тумана", options: ["BR", "HZ", "FG", "FU"], correct: 2},
-{question: "Что значит CAVOK?", options: ["Видимость >10км, без погоды", "Облачность", "Ветер", "Давление"], correct: 0},
+{question: "Что значит CAVOK?", options: ["Видимость >10км, ,без особых явлений погоды", "Облачность", "Ветер", "Давление"], correct: 0},
 {question: "Код для грозы", options: ["TS", "RA", "SN", "FG"], correct: 0},
 {question: "Что значит NOSIG?", options: ["Без изменений", "С изменениями", "Прогноз", "Ошибка"], correct: 0},
 {question: "Код для снега", options: ["SN", "RA", "DZ", "BR"], correct: 0}
 ];
 const tafPredictorData = [
-{metar: "UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG", taf: "TAF UUWW 141600Z 1418/1524 03005MPS 9999 BKN015 TX15/1412Z TN10/1503Z", question: "Какая минимальная температура ожидается?", answer: "10"},
-{metar: "UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012", taf: "TAF UUDD 141500Z 1416/1518 04006MPS 8000 OVC010 TEMPO 1418/1506 3000 BR BKN005", question: "Будет ли туман?", answer: "Да"},
-{metar: "URSS 141630Z 00000MPS CAVOK 20/15 Q1010", taf: "TAF URSS 141600Z 1418/1524 VRB02MPS 9999 FEW030", question: "Изменится ли ветер?", answer: "Нет"},
-{metar: "ULLI 021930Z 00000MPS CAVOK 02/00 Q1032 R88/090060 NOSIG", taf: "TAF ULLI 021800Z 0219/0321 35004MPS 9999 BKN020", question: "Какая облачность ожидается?", answer: "BKN020"},
-{metar: "EGLL 251650Z VRB03KT 9999 FEW030 15/10 Q1018 NOSIG", taf: "TAF EGLL 251600Z 2518/2624 20005KT 9999 SCT025 PROB30 TEMPO 2600/2609 BKN010", question: "Вероятность низкой облачности?", answer: "30%"}
+{metar: "UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG", taf: "TAF UUWW 141600Z 1418/1524 03005MPS 9999 BKN015 TX15/1412Z TN10/1503Z", 
+ question: "Какая минимальная температура ожидается ночью?", 
+ possibleAnswers: "10"},
+{metar: "UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012", taf: "TAF UUDD 141500Z 1416/1518 04006MPS 8000 OVC010 TEMPO 1418/1506 4000 BR BKN005", 
+ question: "Будет ли туман ночью?", 
+ possibleAnswers: "Нет"},
+{metar: "URSS 141630Z 00000MPS CAVOK 20/15 Q1010", taf: "TAF URSS 141600Z 1418/1524 VRB03MPS 9999 FEW030",
+ question: "Изменится ли ветер вечером?", 
+ possibleAnswers: "Да"},
+{metar: "ULLI 021930Z 00000MPS CAVOK 02/00 Q1032 R88/090060 NOSIG", taf: "TAF ULLI 021800Z 0219/0321 35004MPS 9999 BKN020",
+ question: "Какая облачность ожидается?",
+ possibleAnswers: "BKN020", "рассеянная облачность высотой 600 метров", "рассеянная облачность"},
+{metar: "EGLL 251650Z VRB03KT 9999 FEW030 15/10 Q1018 NOSIG", taf: "TAF EGLL 251600Z 2518/2624 20005KT 9999 SCT025 PROB30 TEMPO 2600/2609 BKN010",
+ question: "Вероятность низкой облачности?", 
+ possibleAnswers: "30", "30%", "тридцать"}
 ];
 const flightPlannerData = [
 {route: "Основной: UUWW: METAR UUWW 141630Z 05007MPS 9999 SCT020 17/12 Q1011 NOSIG \n Маршруртный: UUDD: METAR UUDD 141600Z 03005MPS 9999 BKN015 15/10 Q1012 \n Запасной URSS: METAR URSS 141630Z 00000MPS CAVOK 20/15 Q1010", expected: "go", points: 50},
 {route: "Основной: ULLI: METAR ULLI 021930Z 00000MPS CAVOK 02/00 Q1032\nEGLL: Маршруртный: METAR EGLL 251650Z 14004MPS FG 600 BKN019 TSRA 10/8 Q995 \n Запасной METAR KMSN 150153Z 14007MPS 9999 SCT100 BKN120 M01/M07 ", expected: "alternate", points: 30}
+
 ];
