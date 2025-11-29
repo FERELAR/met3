@@ -6,7 +6,8 @@ let hintStep = 0;
 
 let appSettings = JSON.parse(localStorage.getItem('meteoCoderSettings') || '{"theme":"light","fontSize":"normal","animations":true}');
 
-const WEATHER_CODES = {
+
+const WEATHER_CODES1 = {
   'MI': 'мелкий',     'BC': 'пятнами',     'PR': 'частично',     'DR': 'низкий перенос', 'BL': 'высокий перенос',
   'SH': 'ливневый',   'TS': 'гроза',       'FZ': 'переохлаждённый/замерзающий',
   'DZ': 'морось',     'RA': 'дождь',       'SN': 'снег',         'SG': 'снежные зерна', 'IC': 'ледяные кристаллы',
@@ -16,15 +17,14 @@ const WEATHER_CODES = {
   'PO': 'пыльный вихрь', 'SQ': 'шквал',    'FC': 'воронка (торнадо)', 'SS': 'песчаная буря', 'DS': 'пыльная буря'
 };
 
-const CLOUD_TYPES = {
+const CLOUD_TYPES1 = {
   'SKC': 'ясно', 'CLR': 'ясно (автомат)', 'NSC': 'нет значимой облачности', 'FEW': 'малооблачно (1–2/8)',
   'SCT': 'рассеянная облачность (3–4/8)', 'BKN': 'значительная облачность (5–7/8)', 'OVC': 'сплошная облачность (8/8)',
   'VV': 'вертикальная видимость', '///': 'облачность не определяется'
 };
 
-const CLOUD_SUFFIX = { 'CB': 'кучево-дождевые (Cb)', 'TCU': 'мощные кучевые (Tcu)' };
+const CLOUD_SUFFIX1 = { 'CB': 'кучево-дождевые (Cb)', 'TCU': 'мощные кучевые (Tcu)' };
 
-// ====================== ТОКЕНИЗАТОР ======================
 const TOKENS = {
   TYPE:      /^(METAR|SPECI|TAF|TAF AMD|TAF COR)$/,
   ICAO:      /^[A-Z]{4}$/,
@@ -67,7 +67,6 @@ function tokenize(rawCode) {
   return tokens;
 }
 
-// ====================== ДЕКОДЕР ПОГОДЫ ======================
 function decodeWeather(code) {
   if (!code || code === '') return '';
   let result = '';
@@ -82,7 +81,7 @@ function decodeWeather(code) {
   const obscuration = code.match(/(BR|FG|FU|VA|DU|SA|HZ|PY)*/)[0];
   const other = code.match(/(PO|SQ|FC|SS|DS)*/)[0];
 
-  const translate = (str) => str ? str.match(/.{2}/g).map(c => WEATHER_CODES[c] || c).join(' ') : '';
+  const translate = (str) => str ? str.match(/.{2}/g).map(c => WEATHER_CODES1[c] || c).join(' ') : '';
 
   result += intensity;
   result += translate(descriptors) + ' ';
@@ -93,7 +92,6 @@ function decodeWeather(code) {
   return result.trim() || code;
 }
 
-// ====================== ОСНОВНОЙ ПАРСЕР ======================
 class BaseParser {
   constructor(tokens) {
     this.tokens = tokens;
@@ -126,7 +124,6 @@ class BaseParser {
   format(token) { return token.value; }
 }
 
-// ====================== METAR ПАРСЕР ======================
 class MetarParser extends BaseParser {
   parse() {
     this.expect(['TYPE'], true);
@@ -207,9 +204,9 @@ class MetarParser extends BaseParser {
       if (m[1] === 'VV') {
         this.result.push(`Вертикальная видимость: ${parseInt(m[2]) * 30} м`);
       } else {
-        const cover = CLOUD_TYPES[m[1]] || m[1];
+        const cover = CLOUD_TYPES1[m[1]] || m[1];
         const height = m[2] !== '///' ? `${parseInt(m[2]) * 30} м (${parseInt(m[2]) * 100} ft)` : 'неизвестна';
-        const special = m[3] && m[3] !== '///' ? CLOUD_SUFFIX[m[3]] : '';
+        const special = m[3] && m[3] !== '///' ? CLOUD_SUFFIX1[m[3]] : '';
         this.result.push(`Облачность: ${cover}, высота ${height}${special ? ', ' + special : ''}`);
       }
     }
@@ -602,7 +599,192 @@ function parseGamet(code) { return 'Парсер GAMET в разработке';
 function parseSigmet(code) { return 'Парсер SIGMET в разработке'; }
 function parseWarep(code) { return 'Парсер WAREP в разработке'; }
 function parseKn04(code) { return 'Парсер КН-04 в разработке'; }
-
 function parseAirmet(code) { return 'Парсер AIRMET в разработке'; }
 
+// Вспомогательные функции для сравнения текста
+function normalizeText(text) {
+    return text.toLowerCase()
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
+function calculateSimilarity(str1, str2) {
+    const words1 = str1.split(' ');
+    const words2 = str2.split(' ');
+    const set1 = new Set(words1);
+    const set2 = new Set(words2);
+    
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const union = new Set([...set1, ...set2]);
+    
+    return intersection.size / union.size;
+}
+
+function displayLineComparison(userLines, correctLines, type) {
+    const userDisplay = document.getElementById(type === 'decode' ? 'user-decode-display' : 'user-answer-display');
+    const correctDisplay = document.getElementById(type === 'decode' ? 'correct-decode-display' : 'correct-answer-display');
+    
+    userDisplay.innerHTML = '';
+    correctDisplay.innerHTML = '';
+    
+    const maxLines = Math.max(userLines.length, correctLines.length);
+    
+    for (let i = 0; i < maxLines; i++) {
+        const userLine = userLines[i] || '';
+        const correctLine = correctLines[i] || '';
+        
+        const userDiv = document.createElement('div');
+        const correctDiv = document.createElement('div');
+        
+        if (userLine === correctLine) {
+            userDiv.className = 'comparison-group correct';
+            correctDiv.className = 'comparison-group correct';
+        } else {
+            userDiv.className = 'comparison-group incorrect';
+            correctDiv.className = 'comparison-group correct';
+        }
+        
+        userDiv.textContent = userLine;
+        correctDiv.textContent = correctLine;
+        
+        userDisplay.appendChild(userDiv);
+        correctDisplay.appendChild(correctDiv);
+    }
+}
+
+// Функции для работы с режимами (переименованы для избежания конфликтов)
+function initTrainerModes() {
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.mode-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            document.querySelectorAll('.mode-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const mode = this.dataset.mode;
+            document.getElementById(mode + '-content').classList.add('active');
+            
+            // Показать/скрыть сообщение о разработке
+            const devMessage = document.getElementById('dev-message');
+            if (mode === 'practice-encode') {
+                devMessage.style.display = 'block';
+            } else {
+                devMessage.style.display = 'none';
+            }
+        });
+    });
+}
+
+function initCodeTypeButtons() {
+    document.querySelectorAll('.code-type-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.code-type-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            
+            // Обновить инструкции в зависимости от типа кода
+            updateInstructions(this.dataset.type);
+        });
+    });
+}
+
+function updateInstructions(codeType) {
+    const instructions = document.getElementById('decode-instructions');
+    const hints = document.getElementById('hints');
+    
+    switch(codeType) {
+        case 'metar':
+            instructions.innerHTML = '<strong>Режим авторасшифровки METAR/SPECI:</strong> Введите код в поле ниже и нажмите "Расшифровать".';
+            hints.textContent = 'UUWW - Аэропорт Внуково\n141630Z - 14 число, 16:30 UTC\n05007MPS - Ветер 050°, 7 м/с\n9999 - Видимость 10+ км\nSCT020 - Облачность рассеянная на 2000 футов\n17/12 - Температура 17°C, точка росы 12°C\nQ1011 - Давление 1011 гПа\nNOSIG - Без значительных изменений';
+            break;
+        case 'taf':
+            instructions.innerHTML = '<strong>Режим авторасшифровки TAF:</strong> Введите код прогноза в поле ниже.';
+            hints.textContent = 'TAF - Тип сообщения (прогноз)\nUUWW - Аэропорт Внуково\n141600Z - Время выпуска 14 число, 16:00 UTC\n1418/1524 - Период действия с 14-го 18:00 до 15-го 24:00\n03005MPS - Ветер 030°, 5 м/с\n9999 - Видимость 10+ км\nBKN015 - Значительная облачность на 1500 футов';
+            break;
+        default:
+            instructions.innerHTML = `<strong>Режим авторасшифровки ${codeType.toUpperCase()}:</strong> Введите код в поле ниже.`;
+            hints.textContent = 'Парсер в разработке...';
+    }
+}
+
+// Функции для проверки (переименованы)
+function checkDecode() {
+    checkUserDecode();
+}
+
+function checkEncode() {
+    checkUserEncode();
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initTopMenu();
+    initTrainerModes();
+    initCodeTypeButtons();
+    updateTrainerStats();
+    
+    // Инициализация первого упражнения
+    newPracticeCode();
+    newEncodeExercise();
+});
+
+// Настройки
+function openSettingsModal() {
+    document.getElementById('settings-modal').style.display = 'block';
+}
+
+function closeSettingsModal() {
+    document.getElementById('settings-modal').style.display = 'none';
+}
+
+function applySettings() {
+    const theme = document.getElementById('theme-select').value;
+    const fontSize = document.getElementById('font-size').value;
+    const animations = document.getElementById('animations-enabled').checked;
+    
+    // Применить тему
+    document.body.className = theme;
+    document.body.classList.add(`font-${fontSize}`);
+    if (!animations) {
+        document.body.classList.add('no-animations');
+    } else {
+        document.body.classList.remove('no-animations');
+    }
+    
+    // Сохранить настройки
+    appSettings = { theme, fontSize, animations };
+    localStorage.setItem('meteoCoderSettings', JSON.stringify(appSettings));
+    
+    closeSettingsModal();
+}
+
+// Загрузка сохраненных настроек
+function loadSettings() {
+    if (appSettings.theme) {
+        document.getElementById('theme-select').value = appSettings.theme;
+        document.body.className = appSettings.theme;
+    }
+    if (appSettings.fontSize) {
+        document.getElementById('font-size').value = appSettings.fontSize;
+        document.body.classList.add(`font-${appSettings.fontSize}`);
+    }
+    if (appSettings.animations !== undefined) {
+        document.getElementById('animations-enabled').checked = appSettings.animations;
+        if (!appSettings.animations) {
+            document.body.classList.add('no-animations');
+        }
+    }
+}
+
+// Загрузить настройки при старте
+loadSettings();
