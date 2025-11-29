@@ -1010,8 +1010,26 @@ function parseAirmet(code) { return 'Парсер AIRMET в разработке
 
 // Обновленная функция для выбора типа кода
 function initCodeTypeButtons() {
+  const availableTypes = ['metar', 'taf'];
+  const devTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
+  
   document.querySelectorAll('.code-type-btn').forEach(btn => {
+    const codeType = btn.dataset.type;
+    
+    if (devTypes.includes(codeType)) {
+      // Для типов в разработке - добавляем класс disabled и меняем текст
+      btn.classList.add('disabled');
+      btn.innerHTML = `<i class="fas fa-tools"></i> ${codeType.toUpperCase()} (В разработке)`;
+      btn.setAttribute('title', 'Данный тип кода находится в разработке');
+    }
+    
     btn.addEventListener('click', function() {
+      if (this.classList.contains('disabled')) {
+        // Показываем сообщение о разработке
+        showDevMessage(this.dataset.type);
+        return;
+      }
+      
       document.querySelectorAll('.code-type-btn').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
@@ -1021,10 +1039,21 @@ function initCodeTypeButtons() {
       
       updateInstructions(this.dataset.type);
       togglePracticeModes(this.dataset.type);
+      hideDevMessage();
     });
   });
 }
 
+function showDevMessage(codeType) {
+  const devMessage = document.getElementById('dev-message');
+  devMessage.textContent = `${codeType.toUpperCase()} находится в разработке. Выберите METAR или TAF.`;
+  devMessage.style.display = 'block';
+  devMessage.className = 'instructions error';
+}
+
+function hideDevMessage() {
+  document.getElementById('dev-message').style.display = 'none';
+}
 // Функция для скрытия/показа режимов практики
 function togglePracticeModes(codeType) {
   const practiceDecodeBtn = document.querySelector('.mode-btn[data-mode="practice-decode"]');
@@ -1350,4 +1379,5 @@ function toggleAccordion(element) {
     panel.style.display = "block";
     element.setAttribute("aria-expanded", "true");
   }
+
 }
