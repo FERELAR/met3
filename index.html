@@ -196,7 +196,7 @@
                         <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-eye"></i> Видимость</h4>
                         <div class="panel" style="display: none;">Примеры: 9999 - 10 км+; 0500 - 500 м.</div>
                         <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-cloud"></i> Облачность</h4>
-                        <div class="panel" style="display: none;">Примеры: SCT020 - рассеянная 2000 ft; BKN005CB - значительная 500 ft кучево-дождевые.</div>
+                        <div class="panel" style="display: none;">Примеры: SCT020 - рассеянная 600 метров (2000 ft); BKN005CB - значительная 150 метров (500 ft) кучево-дождевые.</div>
                     </div>
                     <div class="input-group">
                         <label>Подсказки по формату:</label>
@@ -247,7 +247,6 @@ NOSIG - Без значительных изменений
                     </div>
                     <div id="meteo-code"></div>
 
-                    <!-- Область для подсказок -->
                     <div id="find-error-hint" class="hint-area"></div>
 
                     <div id="correct-groups" class="result" style="display:none; min-height: auto;"></div>
@@ -273,7 +272,6 @@ NOSIG - Без значительных изменений
 
                     <div id="phenomenon-desc"></div>
                     
-                    <!-- Область для подсказок -->
                     <div id="guess-code-hint" class="hint-area"></div>
                     
                     <input type="text" id="guess-input" placeholder="Введите код">
@@ -295,8 +293,7 @@ NOSIG - Без значительных изменений
                     <i class="fas fa-cog settings-icon" onclick="openSettings('speed-decode')"></i>
                     <div id="speed-metar" class="result"></div>
                     <button class="btn btn-copy" onclick="copyCode('speed-metar')">Скопировать код</button>
-                    
-                    <!-- Область для подсказок -->
+    
                     <div id="speed-decode-hint" class="hint-area"></div>
                     
                     <form id="speed-form" onsubmit="return false;">
@@ -352,8 +349,7 @@ NOSIG - Без значительных изменений
                         <div>Прогресс: <span id="quiz-progress">0/10</span></div>
                     </div>
                     <div id="quiz-question" style="font-size: 1.2rem; margin-bottom: 1rem;"></div>
-                    
-                    <!-- Область для подсказок -->
+
                     <div id="quiz-bowl-hint" class="hint-area"></div>
                     
                     <div class="quiz-options" id="quiz-options"></div>
@@ -381,8 +377,7 @@ NOSIG - Без значительных изменений
                     <div id="taf-taf" class="result"></div>
                     <button class="btn btn-copy" onclick="copyCode('taf-taf')">Скопировать TAF</button>
                     <div id="taf-question" style="margin: 10px 0; font-weight: bold;"></div>
-                    
-                    <!-- Область для подсказок -->
+            
                     <div id="taf-predictor-hint" class="hint-area"></div>
                     
                     <input type="text" id="taf-answer" placeholder="Ваш ответ">
@@ -402,8 +397,7 @@ NOSIG - Без значительных изменений
                         <div>Уровень: <span id="planner-level" class="level">1</span></div>
                     </div>
                     <div id="planner-route"></div>
-                    
-                    <!-- Область для подсказок -->
+            
                     <div id="flight-planner-hint" class="hint-area"></div>
                     
                     <select id="planner-decision">
@@ -432,8 +426,6 @@ NOSIG - Без значительных изменений
                     </div>
                     <div id="animation-container"></div>
                 </div>
-
-                <!-- Таблица статистики по всем играм -->
                 <div class="all-games-stats">
                     <h3>Статистика по всем играм</h3>
                     <table>
@@ -518,5 +510,6 @@ NOSIG - Без значительных изменений
     <script src="meteoCoder.js"></script>
 <script src="miniGames.js"></script>
 </body>
+
 
 </html>
