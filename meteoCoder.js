@@ -35,8 +35,7 @@ let hintStep = 0;
 
 let appSettings = JSON.parse(localStorage.getItem('meteoCoderSettings') || '{"theme":"light","fontSize":"normal","animations":true}');
 
-// ... остальной код парсера без изменений ...
-// Расширенные словари для парсинга
+
 const WEATHER_CODES = {
   'MI': 'мелкий', 'BC': 'пятнами', 'PR': 'частично', 'DR': 'низкий перенос', 'BL': 'высокий перенос',
   'SH': 'ливневый', 'TS': 'гроза', 'FZ': 'переохлаждённый/замерзающий',
@@ -1062,7 +1061,6 @@ function initCodeTypeButtons() {
 function togglePracticeModes(codeType) {
   const practiceDecodeBtn = document.querySelector('.mode-btn[data-mode="practice-decode"]');
   const practiceEncodeBtn = document.querySelector('.mode-btn[data-mode="practice-encode"]');
-  const modeSelector = document.querySelector('.mode-selector');
   
   const availableTypes = ['metar', 'taf'];
   
@@ -1082,7 +1080,6 @@ function togglePracticeModes(codeType) {
     practiceEncodeBtn.style.display = 'flex';
   }
 }
-
 function updateInstructions(codeType) {
   const instructions = document.getElementById('decode-instructions');
   const hints = document.getElementById('hints');

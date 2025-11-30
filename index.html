@@ -40,19 +40,14 @@
                     <section class="main-content-inner">
                         <nav class="code-type-selector" role="tablist">
                             <button class="code-type-btn active" data-type="metar" aria-selected="true" role="tab"><i class="fas fa-plane"></i> METAR/SPECI</button>
-                            <button class="code-type-btn" data-type="kn01" aria-selected="false" role="tab"><i class="fas fa-cloud-rain"></i> КН-01</button>
+                           <button disabled=""><i class="fas fa-cloud-rain"></i> КН-01</button>
                             <button class="code-type-btn" data-type="taf" aria-selected="false" role="tab"><i class="fas fa-clock"></i> TAF</button>
-                            <button class="code-type-btn" data-type="gamet" aria-selected="false" role="tab"><i class="fas fa-map-marked-alt"></i> GAMET</button>
-                            <button class="code-type-btn" data-type="sigmet" aria-selected="false" role="tab"><i class="fas fa-exclamation-triangle"></i> SIGMET</button>
-                            <button class="code-type-btn" data-type="warep" aria-selected="false" role="tab"><i class="fas fa-bolt"></i> WAREP</button>
-                            <button class="code-type-btn" data-type="kn04" aria-selected="false" role="tab"><i class="fas fa-wind"></i> КН-04</button>
-                            <button class="code-type-btn" data-type="airmet" aria-selected="false" role="tab"><i class="fas fa-cloud-meatball"></i> AIRMET</button>
+                            <button disabled=""><i class="fas fa-map-marked-alt"></i> GAMET</button>
+                            <button disabled=""><i class="fas fa-exclamation-triangle"></i> SIGMET</button>
+                           <button disabled=""><i class="fas fa-bolt"></i> WAREP</button>
+                            <button disabled=""><i class="fas fa-wind"></i> КН-04</button>
+                            <button disabled=""><i class="fas fa-cloud-meatball"></i> AIRMET</button>
                         </nav>
-
-                        <div id="dev-message" class="instructions" style="display: none; text-align: center; font-weight: 700;">
-                            В разработке
-                        </div>
-
                         <nav class="mode-selector" role="tablist">
                             <div class="mode-btn active" data-mode="decode" aria-selected="true" role="tab">
                                 <i class="fas fa-search"></i>
@@ -76,7 +71,7 @@
                                 <div class="instructions" id="decode-instructions">
                                     <strong>Режим авторасшифровки:</strong> Введите код в поле ниже и нажмите "Расшифровать".
                                     <ul>
-                                        <li title="Международный код для текущей погоды на аэродроме">Поддержка METAR: Полная расшифро...</li>
+                                        <li title="Международный код для текущей погоды на аэродроме">Поддержка METAR: Полная расшифровка групп</li>
                                         <li title="Прогноз погоды на аэродроме">TAF: Включая изменения FM/TEMPO.</li>
                                         <li title="Синоптический код для наземных наблюдений">KN-01: Базовая расшифровка.</li>
                                         <li>И другие коды с подсказками.</li>
@@ -96,7 +91,10 @@
                                 <div id="loading-decode" class="loading" aria-live="polite" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Обработка...</div>
                                 <div class="input-group">
                                     <label>Результат расшифровки:</label>
-                                    <div class="result" id="decode-result">Здесь появится расшифровка кода...</div>
+                                    <div class="result" id="decode-result">Режим авторасшифровки METAR:
+Вставьте код — получите полную расшифровку.
+Поддерживается: ветер, видимость, RVR, погода, облачность, температура, давление, тренд, RMK.
+</div>
                                 </div>
                             </div>
 
@@ -188,7 +186,7 @@
                 <aside class="sidebar">
                     <h3>Справочная информация</h3>
                     <div class="instructions" id="sidebar-hints">
-                        <strong>METAR</strong> - авиационная регулярная сводка погоды. <span title="Подсказка: CAVOK означает видимость >10км">...</span>
+                        <strong>METAR</strong> - авиационная регулярная сводка погоды. <span title="Подсказка: CAVOK означает видимость >10км"></span>
                     </div>
                     <div class="accordion">
                         <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-wind"></i> Ветер</h4>
@@ -317,7 +315,6 @@ NOSIG - Без значительных изменений
                         <div>Уровень: <span id="builder-level" class="level">1</span></div>
                         <div>Время: <span id="builder-timer" class="level">30</span></div>
                     </div>
-                    <i class="fas fa-cog settings-icon" onclick="openSettings('code-builder')"></i>
                     <div id="builder-description" class="instructions">Нажмите "Новая игра"</div>
 
                     <div style="text-align: left; font-weight: bold; margin-bottom: 5px;">Банк кодов:</div>

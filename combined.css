@@ -233,6 +233,10 @@ gap: 1rem;
 margin-bottom: 2rem;
 }
 .mode-btn {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
 padding: 1rem;
 border: 2px solid var(--border-color);
 border-radius: 8px;
@@ -241,6 +245,8 @@ cursor: pointer;
 transition: all 0.3s ease;
 text-align: center;
 color: var(--text-color);
+min-height: 120px;
+justify-content: center;
 }
 .mode-btn:hover {
 border-color: var(--btn-bg);
