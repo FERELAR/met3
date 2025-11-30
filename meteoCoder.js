@@ -367,8 +367,7 @@ class MetarParser extends BaseParser {
       // Время наблюдения
       const time = this.expect(['TIME']);
       if (time) this.result.push(this.parseTime(time.value));
-      
-      // AUTO (опционально)
+    
       if (this.optional('AUTO')) {
         this.result.push('Автоматическое наблюдение');
       }
@@ -1347,15 +1346,3 @@ function toggleAccordion(element) {
     element.setAttribute("aria-expanded", "true");
   }
 }
-
-// Добавьте также обработчики событий для клавиатуры
-document.addEventListener('DOMContentLoaded', function() {
-  // Обработчики для аккордеона
-  document.querySelectorAll('.accordion h4').forEach(header => {
-    header.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleAccordion(this);
-      }
-    });
-  });
