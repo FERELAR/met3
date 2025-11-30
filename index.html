@@ -39,15 +39,16 @@
                 <section class="main-content">
                     <section class="main-content-inner">
                         <nav class="code-type-selector" role="tablist">
-    <button class="code-type-btn active" data-type="metar" aria-selected="true" role="tab"><i class="fas fa-plane"></i> METAR/SPECI</button>
-    <button class="code-type-btn" data-type="kn01" aria-selected="false" role="tab" disabled><i class="fas fa-cloud-rain"></i> КН-01 (Не доступно)</button>
-    <button class="code-type-btn" data-type="taf" aria-selected="false" role="tab"><i class="fas fa-clock"></i> TAF</button>
-    <button class="code-type-btn" data-type="gamet" aria-selected="false" role="tab" disabled><i class="fas fa-map-marked-alt"></i> GAMET (Не доступно)</button>
-    <button class="code-type-btn" data-type="sigmet" aria-selected="false" role="tab" disabled><i class="fas fa-exclamation-triangle"></i> SIGMET (Не доступно)</button>
-    <button class="code-type-btn" data-type="warep" aria-selected="false" role="tab" disabled><i class="fas fa-bolt"></i> WAREP (Не доступно)</button>
-    <button class="code-type-btn" data-type="kn04" aria-selected="false" role="tab" disabled><i class="fas fa-wind"></i> КН-04 (Не доступно)</button>
-    <button class="code-type-btn" data-type="airmet" aria-selected="false" role="tab" disabled><i class="fas fa-cloud-meatball"></i> AIRMET (Не доступно)</button>
-</nav>
+                            <button class="code-type-btn active" data-type="metar" aria-selected="true" role="tab"><i class="fas fa-plane"></i> METAR/SPECI</button>
+                            <button class="code-type-btn" data-type="kn01" aria-selected="false" role="tab"><i class="fas fa-cloud-rain"></i> КН-01</button>
+                            <button class="code-type-btn" data-type="taf" aria-selected="false" role="tab"><i class="fas fa-clock"></i> TAF</button>
+                            <button class="code-type-btn" data-type="gamet" aria-selected="false" role="tab"><i class="fas fa-map-marked-alt"></i> GAMET</button>
+                            <button class="code-type-btn" data-type="sigmet" aria-selected="false" role="tab"><i class="fas fa-exclamation-triangle"></i> SIGMET</button>
+                            <button class="code-type-btn" data-type="warep" aria-selected="false" role="tab"><i class="fas fa-bolt"></i> WAREP</button>
+                            <button class="code-type-btn" data-type="kn04" aria-selected="false" role="tab"><i class="fas fa-wind"></i> КН-04</button>
+                            <button class="code-type-btn" data-type="airmet" aria-selected="false" role="tab"><i class="fas fa-cloud-meatball"></i> AIRMET</button>
+                        </nav>
+
                         <div id="dev-message" class="instructions" style="display: none; text-align: center; font-weight: 700;">
                             В разработке
                         </div>
@@ -189,26 +190,14 @@
                     <div class="instructions" id="sidebar-hints">
                         <strong>METAR</strong> - авиационная регулярная сводка погоды. <span title="Подсказка: CAVOK означает видимость >10км">...</span>
                     </div>
-
-<div class="accordion">
-  <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button" tabindex="0">
-    <i class="fas fa-wind"></i> Ветер
-  </h4>
-  <div class="panel" style="display: none;">
-    Примеры: 05007MPS - 50° 7 м/с; VRB02KT - переменный 2 узла.
-  </div>
-  <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button" tabindex="0">
-    <i class="fas fa-eye"></i> Видимость
-  </h4>
-  <div class="panel" style="display: none;">
-    Примеры: 9999 - 10 км+; 0500 - 500 м.
-  </div>
-  <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button" tabindex="0">
-    <i class="fas fa-cloud"></i> Облачность
-  </h4>
- <div class="panel" style="display: none;"> рассеянная 600 метров (2000 ft); BKN005CB - значительная 150 метров (500 ft) кучево-дождевые.</div>
-</div>
-
+                    <div class="accordion">
+                        <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-wind"></i> Ветер</h4>
+                        <div class="panel" style="display: none;">Примеры: 05007MPS - 50° 7 м/с; VRB02KT - переменный 2 узла.</div>
+                        <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-eye"></i> Видимость</h4>
+                        <div class="panel" style="display: none;">Примеры: 9999 - 10 км+; 0500 - 500 м.</div>
+                        <h4 onclick="toggleAccordion(this)" aria-expanded="false" role="button"><i class="fas fa-cloud"></i> Облачность</h4>
+                        <div class="panel" style="display: none;">Примеры: SCT020 - рассеянная 600 метров (2000 ft); BKN005CB - значительная 150 метров (500 ft) кучево-дождевые.</div>
+                    </div>
                     <div class="input-group">
                         <label>Подсказки по формату:</label>
                         <div class="result" id="hints">
