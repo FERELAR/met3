@@ -1,3 +1,33 @@
+function toggleAccordion(element) {
+    const panel = element.nextElementSibling;
+    const isExpanded = element.getAttribute('aria-expanded') === 'true';
+    
+    if (panel.style.display === "block") {
+        panel.style.display = "none";
+        element.setAttribute('aria-expanded', 'false');
+        element.querySelector('i').classList.remove('fa-chevron-down');
+        element.querySelector('i').classList.add('fa-chevron-right');
+    } else {
+        panel.style.display = "block";
+        element.setAttribute('aria-expanded', 'true');
+        element.querySelector('i').classList.remove('fa-chevron-right');
+        element.querySelector('i').classList.add('fa-chevron-down');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionHeaders = document.querySelectorAll('.accordion h4');
+    accordionHeaders.forEach(header => {
+        header.setAttribute('aria-expanded', 'false');
+        if (!header.querySelector('i')) {
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-chevron-right';
+            header.insertBefore(icon, header.firstChild);
+            header.innerHTML = ' ' + header.innerHTML;
+        }
+    });
+});
+
 let currentEncodeExercise = null;
 let trainerStats = JSON.parse(localStorage.getItem('trainerStats') || '{"level":1,"totalDecoded":0,"correctDecoded":0,"sessionDecoded":0,"sessionCorrect":0,"errorsByType":{"metar":0,"kn01":0,"taf":0,"gamet":0,"sigmet":0,"warep":0,"kn04":0,"airmet":0}}');
 let currentPracticeCode = null;
@@ -5,6 +35,8 @@ let hintStep = 0;
 
 let appSettings = JSON.parse(localStorage.getItem('meteoCoderSettings') || '{"theme":"light","fontSize":"normal","animations":true}');
 
+// ... остальной код парсера без изменений ...
+// Расширенные словари для парсинга
 const WEATHER_CODES = {
   'MI': 'мелкий', 'BC': 'пятнами', 'PR': 'частично', 'DR': 'низкий перенос', 'BL': 'высокий перенос',
   'SH': 'ливневый', 'TS': 'гроза', 'FZ': 'переохлаждённый/замерзающий',
@@ -32,11 +64,12 @@ const TREND_TYPES = {
   'AT': 'в указанное время'
 };
 
+// Улучшенная система токенов с поддержкой американского формата
 const TOKENS = {
   TYPE: /^(METAR|SPECI|TAF|TAF AMD|TAF COR)$/,
   ICAO: /^[A-Z]{4}$/,
   TIME: /^\d{6}Z$/,
-  PERIOD: /^\d{4}\/\d{4}$/,
+  PERIOD: /^\d{4}\/\d{4}$/, // Исправлено: 0518/0624 вместо 051800/062400
   WIND: /^(\d{3}|VRB)(\d{2,3})(G\d{2,3})?(KT|MPS|KMH)$/,
   VAR_WIND: /^\d{3}V\d{3}$/,
   VIS: /^(CAVOK|(\d{4})|(\d{4}[NSEW])|(\d{1,2}SM)|(\d{1,2}\s?\d\/\dSM)|(\d{1,2})|(M?\d{1,2}\/\d{1,2}))$/,
@@ -46,7 +79,7 @@ const TOKENS = {
   TEMP: /^(M?\d{2})\/(M?\d{2})$/,
   QNH: /^(Q|A)(\d{4})$/,
   TREND: /^(NOSIG|BECMG|TEMPO)$/,
-  TREND_TIME: /^(FM|TL|AT)(\d{4})?$/, 
+  TREND_TIME: /^(FM|TL|AT)(\d{4})?$/, // Американский формат без Z
   PROB: /^PROB(\d{2})$/,
   COLOR: /^(BLU|WHT|GRN|YLO|AMB|RED|BLACK)$/,
   RUNWAY_STATE: /^(\d{2}|88|99)(\d{2}|\/\/)(\d{2}|\/\/)(\d{2}|\/\/)(\d{2}|\/\/)(\d{1}|\/)$/,
@@ -64,7 +97,7 @@ const TOKENS = {
   CEILING: /^CIG\s?\d+/,
   OBSCURATION: /^[A-Z]+\s?[A-Z]+\s?OBSC$/,
   SEALEVEL_PRESSURE: /^SLP\d{3}$/,
- 
+  // Дополнительные
   T_MIN_MAX: /^(TX|TN)(M?\d{2})\/(\d{4})Z$/,
   UNKNOWN: /^.*$/
 };
@@ -1010,7 +1043,7 @@ function parseAirmet(code) { return 'Парсер AIRMET в разработке
 
 // Обновленная функция для выбора типа кода
 function initCodeTypeButtons() {
-  document.querySelectorAll('.code-type-btn:not([disabled])').forEach(btn => {
+  document.querySelectorAll('.code-type-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.code-type-btn').forEach(b => {
         b.classList.remove('active');
@@ -1055,13 +1088,6 @@ function updateInstructions(codeType) {
   const hints = document.getElementById('hints');
   
   const availableTypes = ['metar', 'taf'];
-  const disabledTypes = ['kn01', 'gamet', 'sigmet', 'warep', 'kn04', 'airmet'];
-  
-  if (disabledTypes.includes(codeType)) {
-    instructions.innerHTML = `<strong>${codeType.toUpperCase()} - В разработке</strong><br>Данный тип кода временно недоступен. Выберите METAR или TAF.`;
-    hints.textContent = 'Парсер в разработке...';
-    return;
-  }
   
   if (!availableTypes.includes(codeType)) {
     instructions.innerHTML = `<strong>${codeType.toUpperCase()} в разработке</strong><br>Данный тип кода временно недоступен для авторасшифровки. Выберите METAR или TAF.`;
@@ -1069,6 +1095,17 @@ function updateInstructions(codeType) {
     return;
   }
   
+  switch(codeType) {
+    case 'metar':
+      instructions.innerHTML = '<strong>Режим авторасшифровки METAR/SPECI:</strong> Введите код в поле ниже и нажмите "Расшифровать".';
+      hints.textContent = 'UUWW - Аэропорт Внуково\n141630Z - 14 число, 16:30 UTC\n05007MPS - Ветер 050°, 7 м/с\n9999 - Видимость 10+ км\nSCT020 - Облачность рассеянная на 2000 футов\n17/12 - Температура 17°C, точка росы 12°C\nQ1011 - Давление 1011 гПа\nNOSIG - Без значительных изменений';
+      break;
+    case 'taf':
+      instructions.innerHTML = '<strong>Режим авторасшифровки TAF:</strong> Введите код прогноза в поле ниже.';
+      hints.textContent = 'TAF - Тип сообщения (прогноз)\nUUWW - Аэропорт Внуково\n141600Z - Время выпуска 14 число, 16:00 UTC\n1418/1524 - Период действия с 14-го 18:00 до 15-го 24:00\n03005MPS - Ветер 030°, 5 м/с\n9999 - Видимость 10+ км\nBKN015 - Значительная облачность на 1500 футов\nBECMG - Постепенное изменение\nTEMPO - Временное изменение';
+      break;
+  }
+}
 
 // Остальные функции остаются без изменений...
 function newPracticeCode() {
@@ -1169,19 +1206,14 @@ document.addEventListener('DOMContentLoaded', function() {
   initCodeTypeButtons();
   updateTrainerStats();
   
-  if (typeof initGameSelector === 'function') {
-    initGameSelector();
-
- }
-  if (typeof loadMiniStats === 'function') {
-    loadMiniStats();
-  }
+  // Инициализация первого упражнения
   newPracticeCode();
   if (typeof newEncodeExercise === 'function') {
     newEncodeExercise();
   }
   
-const initialCodeType = document.querySelector('.code-type-btn.active').dataset.type;
+  // Скрываем практические режимы для недоступных типов кодов при старте
+  const initialCodeType = document.querySelector('.code-type-btn.active').dataset.type;
   togglePracticeModes(initialCodeType);
 });
 
@@ -1340,7 +1372,6 @@ function loadSettings() {
 }
 
 loadSettings();
-
 function toggleAccordion(element) {
   element.classList.toggle("active");
   const panel = element.nextElementSibling;
@@ -1349,5 +1380,6 @@ function toggleAccordion(element) {
     element.setAttribute("aria-expanded", "false");
   } else {
     panel.style.display = "block";
-    element.setAttribute("aria-expanded", "true");}
+    element.setAttribute("aria-expanded", "true");
+  }
 }
