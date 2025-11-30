@@ -1347,4 +1347,3 @@ function toggleAccordion(element) {
     element.setAttribute("aria-expanded", "true");
   }
 }
-    };
