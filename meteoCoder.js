@@ -1169,14 +1169,19 @@ document.addEventListener('DOMContentLoaded', function() {
   initCodeTypeButtons();
   updateTrainerStats();
   
-  // Инициализация первого упражнения
+  if (typeof initGameSelector === 'function') {
+    initGameSelector();
+
+ }
+  if (typeof loadMiniStats === 'function') {
+    loadMiniStats();
+  }
   newPracticeCode();
   if (typeof newEncodeExercise === 'function') {
     newEncodeExercise();
   }
   
-  // Скрываем практические режимы для недоступных типов кодов при старте
-  const initialCodeType = document.querySelector('.code-type-btn.active').dataset.type;
+const initialCodeType = document.querySelector('.code-type-btn.active').dataset.type;
   togglePracticeModes(initialCodeType);
 });
 
@@ -1344,7 +1349,5 @@ function toggleAccordion(element) {
     element.setAttribute("aria-expanded", "false");
   } else {
     panel.style.display = "block";
-    element.setAttribute("aria-expanded", "true");
-  }
+    element.setAttribute("aria-expanded", "true");}
 }
-});
