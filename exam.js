@@ -1716,7 +1716,6 @@ function generateCertificateHTML(cert) {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background-image: url('https://i.imgur.com/WpJvGFh.png');
                 background-size: 100% 100%;
                 opacity: 0.1;
                 z-index: 1;
