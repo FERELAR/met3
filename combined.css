@@ -957,3 +957,365 @@ color: var(--text-color);
 width: auto;
 margin-right: 10px;
 }
+.btn-hint {
+    background: #ffc107; /* Желтый цвет */
+    border-color: #ffc107;
+}
+.btn-hint i {
+    margin-right: 5px;
+}
+/* Стили для контрольного блока */
+.exam-type-selector {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.exam-type-card {
+    background: var(--content-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 25px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.exam-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--btn-bg);
+}
+
+.exam-type-card i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: var(--btn-bg);
+}
+
+.exam-settings {
+    background: var(--content-bg);
+    padding: 25px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--content-bg);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.exam-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--btn-bg);
+}
+
+.exam-progress {
+    flex-grow: 1;
+    margin: 0 20px;
+    text-align: center;
+}
+
+.exam-progress progress {
+    width: 100%;
+    height: 10px;
+    margin-top: 5px;
+}
+
+.test-question, .practice-task, .decode-task {
+    background: var(--content-bg);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.question-options {
+    margin-top: 20px;
+}
+
+.option {
+    background: var(--result-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.option:hover {
+    background: var(--instructions-bg);
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+.task-description {
+    background: var(--result-bg);
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.code-display {
+    font-family: monospace;
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 15px;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.exam-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.results-summary {
+    background: var(--content-bg);
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.results-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.stat-card {
+    background: var(--result-bg);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+}
+
+.stat-card.success {
+    border-color: var(--success-color);
+    background: #d4edda;
+}
+
+.stat-card.error {
+    border-color: #dc3545;
+    background: #f8d7da;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.details-table {
+    margin-top: 20px;
+}
+
+.detail-row {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.detail-row.correct {
+    background: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.detail-row.incorrect {
+    background: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.exam-history {
+    background: var(--content-bg);
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.history-table th, .history-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.history-table tr:hover {
+    background: var(--result-bg);
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status-badge.passed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.failed {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.certificate-card {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.certificate-header {
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.certificate-header i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.certificate-body {
+    padding: 20px;
+    background: var(--content-bg);
+}
+
+@media (max-width: 768px) {
+    .exam-type-selector {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .exam-type-card {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .exam-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .results-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .results-actions {
+        flex-direction: column;
+    }
+}
+
+/* Стили для сертификатов */
+.certificate-preview {
+    background: white;
+    border: 15px solid gold;
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.certificate-watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(0,0,0,0.05)" font-size="24" font-family="Arial">МЕТЕОКОД</text></svg>');
+    background-size: 200px 200px;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.requirement-card {
+    background: var(--content-bg);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+}
+
+.certificate-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.certificate-level {
+    margin-top: 10px;
+    font-size: 18px;
+    color: gold;
+}
+
+.history-stat {
+    background: var(--result-bg);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.history-stat .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--btn-bg);
+}
+
+.history-stat .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+

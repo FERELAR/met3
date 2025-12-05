@@ -48,7 +48,6 @@ function renderMiniStats(gameKey) {
                     info.style.fontSize = '12px';
                     container.appendChild(info);
                 }
-                info.textContent = `Игры: ${miniStats[gameKey].games}, Победы: ${miniStats[gameKey].wins}, Всего очков: ${miniStats[gameKey].totalPoints}`;
             }
         } else if (gameKey === 'guess-code') {
             const el = document.getElementById('guess-score');
@@ -538,7 +537,7 @@ function startCodeBuilder() {
         pool.appendChild(span);
     });
     currentBuilderCorrect = item.code;
-    let timeLeft = 60 * timerSpeeds[currentTimerSpeed];
+    let timeLeft = 120 * timerSpeeds[currentTimerSpeed];
     document.getElementById('builder-timer').textContent = Math.ceil(timeLeft);
     builderTimerInterval = setInterval(() => {
         timeLeft--;
